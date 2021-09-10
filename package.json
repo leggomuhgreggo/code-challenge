@@ -1,8 +1,12 @@
 {
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
-    "@react-navigation/bottom-tabs": "~5.11.7",
-    "@react-navigation/native": "~5.9.2",
+    "@react-navigation/bottom-tabs": "^6.0.5",
+    "@react-navigation/core": "^6.0.1",
+    "@react-navigation/drawer": "^6.1.4",
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/native-stack": "^6.1.0",
+    "@react-navigation/stack": "^6.0.7",
     "expo": "~42.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -14,14 +18,29 @@
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0"
+    "@babel/core": "~7.9.0",
+    "@types/babel__core": "~7.1.16",
+    "@types/eslint": "^7.28.0",
+    "@types/react": "17.0.20",
+    "@types/react-dom": "17.0.9",
+    "@types/react-native": "0.65.0",
+    "eslint": "^7.32.0",
+    "eslint-config-xo-react": "^0.25.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "typescript": "^4.4.2"
   },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "postinstall": "npx typesync && git diff --exit-code --quiet HEAD package.json || yarn --ignore-scripts"
   },
-  "private": true
+  "private": true,
+  "xo": {
+    "space": true,
+    "prettier": true
+  }
 }
