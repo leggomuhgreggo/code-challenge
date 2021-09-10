@@ -1,4 +1,14 @@
 {
+  "name": "code-challenge",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "postinstall": "npx typesync && git diff --exit-code --quiet HEAD package.json || yarn --ignore-scripts"
+  },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^6.0.5",
@@ -30,15 +40,6 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "typescript": "^4.4.2"
   },
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject",
-    "postinstall": "npx typesync && git diff --exit-code --quiet HEAD package.json || yarn --ignore-scripts"
-  },
-  "private": true,
   "xo": {
     "space": true,
     "prettier": true
