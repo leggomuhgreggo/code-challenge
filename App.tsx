@@ -4,44 +4,59 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Link } from "@react-navigation/native";
 
-type RootStackParamList = {
-  Home: undefined;
-  Menu: { restaurantSlug: string };
-  PDP: { restaurantSlug: string; productSlug: string };
-  NotFound: undefined;
-};
-const linking = {
-  prefixes: ["https://mychat.com", "mychat://"],
-  config: {
-    screens: {
-      Home: { path: "" },
-      Menu: { path: ":restaurantSlug/menu" },
-      PDP: {
-        path: ":restaurantSlug/:productSlug",
-      },
-      NotFound: { path: "*" },
-    },
-  },
-};
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-function App() {
+const Main = () => {
+  return (
+    <RootStack.Navigator>
+      <RootStack.Group>
+        <RootStack.Screen name="Home" component={GenericScreen} />
+        <RootStack.Screen name="Menu" component={GenericScreen} />
+        <RootStack.Screen name="PDP" component={GenericScreen} />
+        <RootStack.Screen name="NotFound" component={GenericScreen} />
+      </RootStack.Group>
+    </RootStack.Navigator>
+  );
+};
+
+const App = () => {
   return (
     <NavigationContainer linking={linking}>
-      <RootStack.Navigator>
-        <RootStack.Group>
-          <RootStack.Screen name="Home" component={HomeScreen} />
-          <RootStack.Screen name="Menu" component={HomeScreen} />
-          <RootStack.Screen name="PDP" component={HomeScreen} />
-          <RootStack.Screen name="NotFound" component={HomeScreen} />
-        </RootStack.Group>
-      </RootStack.Navigator>
+      <MyDrawer />
     </NavigationContainer>
   );
-}
+};
 
 export default App;
+
+// ────────────────────────────────────────────────────────────────────────────────
+
+// https://reactnavigation.org/docs/drawer-navigator#api-definition
+
+const Drawer = createDrawerNavigator();
+
+const MyDrawer = () => {
+  return (
+    <Drawer.Navigator screenOptions={{ headerShown: true }}>
+      <Drawer.Screen name="Article" component={Main} />
+      <Drawer.Screen name="Drawer" component={DrawerScreen} />
+    </Drawer.Navigator>
+  );
+};
+
+// ────────────────────────────────────────────────────────────────────────────────
+
+const DrawerScreen = ({ route }) => {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text style={{ fontSize: 40 }}>{route.name}</Text>
+    </View>
+  );
+};
+
+// ────────────────────────────────────────────────────────────────────────────────
 
 const links = [
   { screen: "Home" },
@@ -54,7 +69,8 @@ const links = [
     },
   },
 ];
-function HomeScreen({ route }) {
+
+const GenericScreen = ({ route }) => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text style={{ fontSize: 40 }}>{route.name}</Text>
@@ -77,4 +93,26 @@ function HomeScreen({ route }) {
       </View>
     </View>
   );
-}
+};
+
+// ────────────────────────────────────────────────────────────────────────────────
+
+type RootStackParamList = {
+  Home: undefined;
+  Menu: { restaurantSlug: string };
+  PDP: { restaurantSlug: string; productSlug: string };
+  NotFound: undefined;
+};
+const linking = {
+  prefixes: ["https://mychat.com", "mychat://"],
+  config: {
+    screens: {
+      Home: { path: "" },
+      Menu: { path: ":restaurantSlug/menu" },
+      PDP: {
+        path: ":restaurantSlug/:productSlug",
+      },
+      NotFound: { path: "*" },
+    },
+  },
+};
