@@ -1,4 +1,4 @@
-# Tab navigation example
+# Code Challenge
 
 <p>
   <!-- iOS -->
